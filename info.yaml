@@ -14,7 +14,7 @@ project:
   top_module:  "tt_um_odgrip_polywave"
 
   source_files:
-    - "project.v"
+    - "tt_um_odgrip_polywave.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).

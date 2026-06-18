@@ -1,0 +1,12 @@
+VERSION 5.7 ;
+  NOWIREEXTENSIONATPIN ON ;
+  DIVIDERCHAR "/" ;
+  BUSBITCHARS "[]" ;
+MACRO tt_um_analog_rick2rick
+  CLASS BLOCK ;
+  FOREIGN tt_um_analog_rick2rick ;
+  ORIGIN 0.000 0.000 ;
+  SIZE 1.000 BY 1.000 ;
+END tt_um_analog_rick2rick
+END LIBRARY
+

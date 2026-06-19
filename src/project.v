@@ -17,6 +17,7 @@
  * uio_in    8-bit live modulation/control input bus
  *           direct byte data when ui_in[7]=1
  * uio_out   unused
+ * ua        Tiny Tapeout analog pins; driven by the custom GDS R-2R ladders
  * VAPWR     present for the Tiny Tapeout pgvaa analog frame; unused internally
  *
  * R2R_Bn_0..3 are internal mixed-signal layout buses. They drive the four
@@ -41,7 +42,7 @@ module tt_um_odgrip_polywave (
     input  wire [7:0] uio_in,
     output wire [7:0] uio_out,
     output wire [7:0] uio_oe,
-//    inout  wire [7:0] ua,
+    inout  wire [7:0] ua,
     output wire [15:0] R2R_Bn_0,
     output wire [15:0] R2R_Bn_1,
     output wire [15:0] R2R_Bn_2,
@@ -51,7 +52,7 @@ module tt_um_odgrip_polywave (
     input  wire       rst_n
 );
 
-    wire _unused = VGND ^ VDPWR ^ VAPWR ^ ena;
+    wire _unused = VGND ^ VDPWR ^ VAPWR ^ ena ^ (^ua);
 
     reg [19:0] phase_0, phase_1, phase_2, phase_3;
     reg [15:0] lfsr;

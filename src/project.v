@@ -48,7 +48,61 @@ module tt_um_odgrip_polywave (
     input  wire       rst_n
 );
 
-    wire _unused = VGND ^ VDPWR ^ VAPWR ^ ena ^ (^ua);
+    wire [15:0] R2R_Bn_0;
+    wire [15:0] R2R_Bn_1;
+    wire [15:0] R2R_Bn_2;
+    wire [15:0] R2R_Bn_3;
+
+    polywave_top_digital top_digital (
+        .VGND(VGND),
+        .VDPWR(VDPWR),
+        .VAPWR(VAPWR),
+        .ui_in(ui_in),
+        .uo_out(uo_out),
+        .uio_in(uio_in),
+        .uio_out(uio_out),
+        .uio_oe(uio_oe),
+        .R2R_Bn_0(R2R_Bn_0),
+        .R2R_Bn_1(R2R_Bn_1),
+        .R2R_Bn_2(R2R_Bn_2),
+        .R2R_Bn_3(R2R_Bn_3),
+        .ena(ena),
+        .clk(clk),
+        .rst_n(rst_n)
+    );
+
+    polywave_top_analog_stub top_analog (
+        .VGND(VGND),
+        .VDPWR(VDPWR),
+        .VAPWR(VAPWR),
+        .R2R_Bn_0(R2R_Bn_0),
+        .R2R_Bn_1(R2R_Bn_1),
+        .R2R_Bn_2(R2R_Bn_2),
+        .R2R_Bn_3(R2R_Bn_3),
+        .ua(ua)
+    );
+
+endmodule
+
+module polywave_top_digital (
+    input  wire       VGND,
+    input  wire       VDPWR,
+    input  wire       VAPWR,
+    input  wire [7:0] ui_in,
+    output wire [7:0] uo_out,
+    input  wire [7:0] uio_in,
+    output wire [7:0] uio_out,
+    output wire [7:0] uio_oe,
+    output wire [15:0] R2R_Bn_0,
+    output wire [15:0] R2R_Bn_1,
+    output wire [15:0] R2R_Bn_2,
+    output wire [15:0] R2R_Bn_3,
+    input  wire       ena,
+    input  wire       clk,
+    input  wire       rst_n
+);
+
+    wire _unused = VGND ^ VDPWR ^ VAPWR ^ ena;
 
     reg [19:0] phase_0, phase_1, phase_2, phase_3;
     reg [15:0] lfsr;
@@ -91,10 +145,6 @@ module tt_um_odgrip_polywave (
     wire signed [19:0] cm_2 = {{12{wave_1[15]}}, wave_1[15:8]};
     wire signed [19:0] cm_3 = {{12{wave_2[15]}}, wave_2[15:8]};
     wire [19:0] live_nudge = {8'd0, uio_in, 4'd0};
-    wire [15:0] R2R_Bn_0;
-    wire [15:0] R2R_Bn_1;
-    wire [15:0] R2R_Bn_2;
-    wire [15:0] R2R_Bn_3;
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
@@ -175,6 +225,22 @@ module tt_um_odgrip_polywave (
             tri17 = mag ^ 16'h8000;
         end
     endfunction
+
+endmodule
+
+module polywave_top_analog_stub (
+    input  wire        VGND,
+    input  wire        VDPWR,
+    input  wire        VAPWR,
+    input  wire [15:0] R2R_Bn_0,
+    input  wire [15:0] R2R_Bn_1,
+    input  wire [15:0] R2R_Bn_2,
+    input  wire [15:0] R2R_Bn_3,
+    inout  wire [7:0]  ua
+);
+
+    wire _unused = VGND ^ VDPWR ^ VAPWR ^ (^R2R_Bn_0) ^ (^R2R_Bn_1) ^
+                   (^R2R_Bn_2) ^ (^R2R_Bn_3) ^ (^ua);
 
 endmodule
 

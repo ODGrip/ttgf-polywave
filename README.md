@@ -15,12 +15,13 @@ This is a custom GDS/LEF submission, not a pure digital hardening flow. The
 physical design is provided by the prebuilt files in `gds/` and `lef/`; the
 GitHub action packages and checks those artifacts.
 
-The Verilog in `src/project.v` documents and syntax-checks the digital
-performance engine that drives the DAC ladders while keeping the top-level port
-list compatible with the standard Tiny Tapeout analog wrapper. The internal
-`R2R_Bn_0` to `R2R_Bn_3` buses represent mixed-signal layout connections to the
-four 16-bit R-2R ladders, but they are intentionally not exposed as top-level
-ports.
+The Verilog in `src/project.v` documents and syntax-checks the mixed-signal
+partition while keeping the public top-level port list compatible with the
+standard Tiny Tapeout analog wrapper. The `tt_um_odgrip_polywave` module is the
+wrapper submitted to Tiny Tapeout, `polywave_top_digital` is the digital
+performance engine, and `polywave_top_analog_stub` represents the custom analog
+layout boundary. The internal `R2R_Bn_0` to `R2R_Bn_3` buses connect those two
+blocks conceptually, but they are intentionally not exposed as top-level ports.
 
 The submitted analog frame still exposes the Tiny Tapeout `VAPWR` interface pin
 because the physical GF180 pgvaa frame uses that template. The current digital

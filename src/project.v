@@ -43,10 +43,6 @@ module tt_um_odgrip_polywave (
     output wire [7:0] uio_out,
     output wire [7:0] uio_oe,
     inout  wire [7:0] ua,
-    output wire [15:0] R2R_Bn_0,
-    output wire [15:0] R2R_Bn_1,
-    output wire [15:0] R2R_Bn_2,
-    output wire [15:0] R2R_Bn_3,
     input  wire       ena,
     input  wire       clk,
     input  wire       rst_n
@@ -95,6 +91,10 @@ module tt_um_odgrip_polywave (
     wire signed [19:0] cm_2 = {{12{wave_1[15]}}, wave_1[15:8]};
     wire signed [19:0] cm_3 = {{12{wave_2[15]}}, wave_2[15:8]};
     wire [19:0] live_nudge = {8'd0, uio_in, 4'd0};
+    wire [15:0] R2R_Bn_0;
+    wire [15:0] R2R_Bn_1;
+    wire [15:0] R2R_Bn_2;
+    wire [15:0] R2R_Bn_3;
 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin

@@ -23,9 +23,10 @@ physical R-2R ladders in the custom GDS. The analog DAC outputs are exposed on
 This repository uses the Tiny Tapeout custom GDS path. The prebuilt `gds/` and
 `lef/` files are the physical source for the submitted layout. `src/project.v`
 documents and syntax-checks the digital engine used by the mixed-signal layout;
-it is not synthesized by the submission action into a new layout. For that
-reason the Verilog includes internal R-2R bus ports that would not appear in a
-pure digital Tiny Tapeout wrapper.
+it is not synthesized by the submission action into a new layout. The Verilog
+therefore keeps the public top-level port list compatible with the Tiny Tapeout
+analog wrapper and models the R-2R buses as internal signals rather than
+top-level ports.
 
 The submitted analog frame uses the GF180 pgvaa Tiny Tapeout interface, so
 `VAPWR` remains part of the project interface even though the current digital

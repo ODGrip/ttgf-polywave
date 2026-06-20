@@ -452,7 +452,7 @@ MACRO tt_um_odgrip_polywave
     USE POWER ;
     PORT
       LAYER Metal4 ;
-        RECT 6.580 5.000 8.580 320.360 ;
+        RECT 4.580 5.000 6.580 320.360 ;
     END
   END VAPWR
 END tt_um_odgrip_polywave
